@@ -1,0 +1,22 @@
+export class Person {
+  constructor(
+    public id: number,
+    public email: string,
+    public password: string,
+    public firstName: string,
+    public lastName: string,
+    public address: Address,
+  ) {}
+}
+
+export class Address {
+  constructor(
+    public street: string,
+    public houseNo: string,
+    public apartmentNo: string,
+    public postalIndex: string,
+    public city: string,
+    public county: string,
+    public country: string
+  ) {}
+}

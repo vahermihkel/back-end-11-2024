@@ -21,6 +21,7 @@ import java.util.List;
 //        ]
 //        }
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 public class OrderController {
 

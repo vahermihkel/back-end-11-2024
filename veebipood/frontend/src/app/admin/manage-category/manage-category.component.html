@@ -1,0 +1,17 @@
+<!-- 
+  [HTML-ATRIBUUT]   => property binding, saan muuta HTML elementide atribuute dünaamiliseks
+  {{ .ts failist muutuja }}  => string interpolation, kuvan HTMLs muutujaid välja
+  (click)   (keypress)    =>    event binding, kutsun funktsionaalsusi sündmusega välja
+  [(ngModel)]  => two-way binding, kasutab enda sees nii property bindingut kui ka event bindingut
+                  korraga seob ja korraga saadab ehk ühendab ennast muutujaga ära
+-->
+
+
+<label>Kategooria nimi</label> <br>
+<input [(ngModel)]="newCategory" type="text"> <br>
+<button [disabled]="newCategory.length < 2" (click)="addCategory()">Sisesta</button> <br>
+
+@for (category of categories; track category) {
+  <div>{{ category.name }}</div>
+  <button (click)="removeCategory(category.id)">Kustuta</button>
+}

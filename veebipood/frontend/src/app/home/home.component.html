@@ -1,0 +1,9 @@
+<!-- <div>For tsükkel</div> -->
+
+<!-- VANA ANGULAR: <div *ngFor=""></div> -->
+
+@for (product of products; track product) {
+  <div>{{ product.name }} - {{ product.price }}€</div>
+}
+
+<!-- ctrl+ä <button (click)="fetchProducts()">Fetchi tooted</button> -->

@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Nimi</th>
+    <th>Hind</th>
+    <th>Kategooria</th>
+    <th>Proteiinid</th>
+    <th>Süsivesikud</th>
+    <th>Rasvad</th>
+    <th>Kustuta</th>
+    <th>Muuda</th>
+  </tr>
+@for (product of products; track product) {
+  <tr>
+    <td>{{ product.id }}</td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.price }}</td>
+    <td>{{ product.category.name }}</td>
+    <td>{{ product.nutrients.protein }}</td>
+    <td>{{ product.nutrients.carbohydrate }}</td>
+    <td>{{ product.nutrients.fat }}</td>
+    <td> <button (click)="removeProduct(product.id)">x</button> </td>
+    <td> <button routerLink="TODO: muuda URL">Muuda</button> </td>
+  </tr>
+}
+</table>

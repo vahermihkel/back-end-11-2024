@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Random;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 public class ProductController {
     @Autowired
