@@ -5,6 +5,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ManageCategoryComponent } from './admin/manage-category/manage-category.component';
 import { ManageCharacteristicsComponent } from './admin/manage-characteristics/manage-characteristics.component';
 import { ManageProductsComponent } from './admin/manage-products/manage-products.component';
+import { AddProductComponent } from './admin/add-product/add-product.component';
 
 // path: "cart"   --> see on, mis järgneb localhost:4200-le ehk
 //      baasURL-le    err.ee     err.ee/cart
@@ -19,4 +20,5 @@ export const routes: Routes = [
   {path: "manage-category", component: ManageCategoryComponent},
   {path: "manage-characteristics", component: ManageCharacteristicsComponent},
   {path: "manage-products", component: ManageProductsComponent},
+  {path: "add-product", component: AddProductComponent},
 ];

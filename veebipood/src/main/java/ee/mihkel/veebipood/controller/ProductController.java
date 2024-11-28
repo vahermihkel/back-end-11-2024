@@ -3,12 +3,14 @@ package ee.mihkel.veebipood.controller;
 import ee.mihkel.veebipood.repository.ProductRepository;
 import ee.mihkel.veebipood.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Random;
 
-@CrossOrigin("http://localhost:4200")
+//@CrossOrigin("http://localhost:4200")
 @RestController
 public class ProductController {
     @Autowired
@@ -34,8 +36,13 @@ public class ProductController {
 
     // localhost:8080/products
     @GetMapping("products")
-    public List<Product> getProducts() {
-        return productRepository.findAll(); // SELECT * FROM products;
+    public Page<Product> getProducts(Pageable pageable) {
+        return productRepository.findAll(pageable); // SELECT * FROM products;
+    }
+
+    @GetMapping("product/{name}")
+    public Product getProduct(@PathVariable String name) {
+        return productRepository.findById(name).orElseThrow(); // SELECT * FROM products;
     }
 
     // kui ma teen brauseris päringuid, siis ma ei saa @PostMapping, @PutMapping, @DeleteMapping
@@ -43,7 +50,7 @@ public class ProductController {
     //                         @RequestParam String name
 
 
-    // localhost:8080/add-product
+    // localhost:8080/products
     @PostMapping("products")
     public List<Product> addProduct(@RequestBody Product product) {
         //products.add(new Product(name, price, true, ""));

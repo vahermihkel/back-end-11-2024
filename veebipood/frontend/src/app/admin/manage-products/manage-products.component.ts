@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-manage-products',
@@ -11,11 +12,11 @@ import { Component } from '@angular/core';
 export class ManageProductsComponent {
   products: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>("http://localhost:8080/products").subscribe(response => 
-      this.products = response
+    this.productService.getProducts().subscribe(response => 
+      this.products = response.content
     );
   }
 

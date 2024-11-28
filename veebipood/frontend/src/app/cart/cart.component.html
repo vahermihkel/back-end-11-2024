@@ -1,1 +1,11 @@
-<p>cart works!</p>
+@for (cartRow of cart; track cartRow) {
+  <div>{{cartRow.product.name}}</div>
+  <div>{{cartRow.product.price}} €</div>
+  <button (click)="decreaseQuantity(cartRow)">-</button>
+  <div>{{cartRow.quantity}} tk</div>
+  <button (click)="increaseQuantity(cartRow)">+</button>
+  <div>{{cartRow.product.price * cartRow.quantity}} €</div>
+  <button (click)="deleteFromCart($index)">Delete from cart</button>
+}
+
+<button (click)="saveOrder()">Telli</button>

@@ -4,6 +4,7 @@
 
 @for (product of products; track product) {
   <div>{{ product.name }} - {{ product.price }}€</div>
+  <button (click)="addToCart(product)">Add to cart</button>
 }
 
 <!-- ctrl+ä <button (click)="fetchProducts()">Fetchi tooted</button> -->

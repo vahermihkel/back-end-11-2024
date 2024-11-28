@@ -12,6 +12,7 @@
 <button [disabled]="newCategory.length < 2" (click)="addCategory()">Sisesta</button> <br>
 
 @for (category of categories; track category) {
+  <div>{{ category.id }}</div>
   <div>{{ category.name }}</div>
   <button (click)="removeCategory(category.id)">Kustuta</button>
 }

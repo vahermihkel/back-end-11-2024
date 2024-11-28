@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-manage-category',
@@ -13,22 +14,23 @@ export class ManageCategoryComponent {
   categories: any[] = [];
   newCategory = "";
 
-  constructor(private http: HttpClient) {} // siia mida ei eksisteeri tavalises JavaScriptis
+  constructor(private categoryService: CategoryService) {} // siia mida ei eksisteeri tavalises JavaScriptis
 
   ngOnInit(): void {
-    this.http.get<any[]>("http://localhost:8080/categories").subscribe(res => 
+    this.categoryService.getCategories().subscribe(res => 
       this.categories = res
     );
   }
 
   addCategory() {
-    this.http.post<any[]>("http://localhost:8080/categories", {"name": this.newCategory}).subscribe(res => 
-      this.categories = res
-    );
+    this.categoryService.addCategory(this.newCategory).subscribe(res => {
+      this.categories = res;
+      this.newCategory = "";
+    });
   }
 
   removeCategory(id: number) {
-    this.http.delete<any[]>("http://localhost:8080/categories/" + id).subscribe(res =>
+    this.categoryService.deleteCategory(id).subscribe(res =>
       this.categories = res
     );
   }

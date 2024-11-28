@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ProductService } from '../services/product.service';
+import { CartService } from '../services/cart.service';
+import { Product } from '../models/Product';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +12,22 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  products: any[] = [];
+  products: Product[] = [];
 
   // failide sidumiseks
-  constructor(private http: HttpClient) {}
+  constructor(private productService: ProductService,
+    private cartService: CartService
+  ) {}
 
   // lehele tuleku käima minemise funktsioon
   ngOnInit(): void {
-    this.http.get<any[]>("http://localhost:8080/products").subscribe(response => 
-      this.products = response
+    this.productService.getProducts().subscribe(response => 
+      this.products = response.content
     );
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
   }
 
   // fetchProducts() {
