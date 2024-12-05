@@ -2,6 +2,8 @@ package ee.mihkel.veebipood.controller;
 
 import ee.mihkel.veebipood.dto.PersonDTO;
 import ee.mihkel.veebipood.entity.Person;
+import ee.mihkel.veebipood.models.EmailPassword;
+import ee.mihkel.veebipood.models.Token;
 import ee.mihkel.veebipood.repository.PersonRepository;
 import lombok.extern.log4j.Log4j2;
 import org.apache.coyote.Response;
@@ -11,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Log4j2 // --> võimaldab logida. vs sout: annab kellaaja+kuupäeva, info/error/debug, faili kus logis, logifaili
 //@CrossOrigin("http://localhost:4200")
@@ -26,9 +26,38 @@ public class PersonController {
     @Autowired
     ModelMapper modelMapper; // selle Autowire-damiseks pidime @Beani sees tegema = new ModelMapper()
 
+    @PostMapping("login")
+    public ResponseEntity<Token> login(@RequestBody EmailPassword emailPassword) {
+        // 1. otsime isiku üles e-maili abil
+        Person person = personRepository.findByEmail(emailPassword.getEmail());
+        if (person == null) {
+            throw new RuntimeException("Email on vale!");
+        }
+
+        // 2. võrdleme isiku parooli sisestatud parooliga
+        if (person.getPassword().equals(emailPassword.getPassword())) {
+            // 3. tagastame Tokeni kui õnnestus.
+            Token token = new Token("base-64 formaat", new Date());
+            return ResponseEntity.ok(token);
+        }
+        // 4. Tagastameveateate kui ei õnnestunud
+        throw new RuntimeException("Parool on vale!");
+    }
 
     @PostMapping("signup")
     public ResponseEntity<List<Person>> signup(@RequestBody Person person) {
+        if (person.getEmail() == null) {
+            throw new RuntimeException("Isikut registreerides on e-mail puudu");
+        }
+        if (person.getPassword() == null) {
+            throw new RuntimeException("Isikut registreerides on parool puudu");
+        }
+        if (person.getFirstName() == null) {
+            throw new RuntimeException("Isikut registreerides on eesnimi puudu");
+        }
+        if (person.getLastName() == null) {
+            throw new RuntimeException("Isikut registreerides on perenimi puudu");
+        }
         personRepository.save(person);
         return ResponseEntity.status(HttpStatus.CREATED).body(personRepository.findAll()); // ResponseEntity --> võimaldab seadistada Headereid ja staatuskoodi
     } // ehk rohkem kontrolli enda käes

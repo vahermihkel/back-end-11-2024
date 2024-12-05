@@ -23,4 +23,6 @@ export class CategoryService {
   deleteCategory(id: number): Observable<Category[]>  {
     return this.http.delete<any[]>(this.url + "/" + id);
   }
+
+  
 }

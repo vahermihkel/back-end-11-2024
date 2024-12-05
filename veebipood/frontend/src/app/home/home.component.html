@@ -2,9 +2,26 @@
 
 <!-- VANA ANGULAR: <div *ngFor=""></div> -->
 
-@for (product of products; track product) {
+@for (category of categories; track category.id) {
+  <button (click)="filterByCategory(category.id)">{{category.name}}</button>
+}
+
+
+<div>{{totalElements}} products in total</div>
+<div>Kuva korraga lehel</div>
+<button (click)="changePageSize(2)">2</button>
+<button (click)="changePageSize(3)">3</button>
+<button (click)="changePageSize(4)">4</button>
+
+@for (product of products; track product.name) {
   <div>{{ product.name }} - {{ product.price }}€</div>
   <button (click)="addToCart(product)">Add to cart</button>
+}
+
+<br><br>
+
+@for (page of pages; track page) {
+  <button [class.active-page]="currentPage === page" (click)="changePage(page)">{{page}}</button>
 }
 
 <!-- ctrl+ä <button (click)="fetchProducts()">Fetchi tooted</button> -->

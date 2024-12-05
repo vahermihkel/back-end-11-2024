@@ -32,28 +32,35 @@ public class VeebipoodApplication {
 // Unit Testid
 // Integratsiooni testid
 
-//9.  05.12
+//9.  05.12 - 17.45-21.00
 // VEAHALDUS - Exceptionid
 
+// FRONTEND:
+// angularis tõlge
+// ühe toote vaatamist
+// otsingumootor
+// filtreerimine kategooriate alusel+++
+// leheküljed - Pagination+++
+
 //10.  10.12
+// Päringud rakendusest välja -> RestTemplate (pakiautomaadid)
+
+//11.N 12.12
+// Makse (tagasi kaupmehe juurde)
+
+//12.T 17.12
 // Autentimine
 // Spring Security
 
-
-//11.N 12.12
+//13.N 19.12
 // JWT Token
 // Rollid
-
-//12.T 17.12
-// Päringud rakendusest välja -> RestTemplate (pakiautomaadid)
-
-//13.N 19.12
-// Makse (tagasi kaupmehe juurde)
 
 
 //14.E 23.12
 // Shell-script
 // Profiilid - LIVE / TEST keskkonna vahetus
+// cron
 
 //15.E 30.12
 // Docker

@@ -5,6 +5,7 @@ import ee.mihkel.filmipood.entity.Rental;
 import ee.mihkel.filmipood.model.FilmReturn;
 import ee.mihkel.filmipood.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,5 +26,10 @@ public class RentalController {
     @PostMapping("end-rental")
     public List<Rental> endRental(@RequestBody List<FilmReturn> films) {
         return rentalService.endRental(films);
+    }
+
+    @GetMapping("bonus-points")
+    public int getBonusPoints() {
+        return rentalService.getBonusPoints();
     }
 }

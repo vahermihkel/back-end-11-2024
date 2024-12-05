@@ -34,10 +34,15 @@ public class ProductController {
 
     // products = ["Coca", "Fanta", "Sprite]
 
-    // localhost:8080/products
+    // localhost:8080/products?size=3&page=0
     @GetMapping("products")
     public Page<Product> getProducts(Pageable pageable) {
         return productRepository.findAll(pageable); // SELECT * FROM products;
+    }
+
+    @GetMapping("all-products")
+    public List<Product> getProducts() {
+        return productRepository.findAll(); // SELECT * FROM products;
     }
 
     @GetMapping("product/{name}")

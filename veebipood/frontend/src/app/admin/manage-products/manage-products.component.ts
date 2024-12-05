@@ -15,8 +15,8 @@ export class ManageProductsComponent {
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(response => 
-      this.products = response.content
+    this.productService.getAllProducts().subscribe(response => 
+      this.products = response
     );
   }
 

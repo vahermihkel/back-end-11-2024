@@ -5,6 +5,7 @@ import ee.mihkel.filmipood.entity.Rental;
 import ee.mihkel.filmipood.model.FilmReturn;
 import ee.mihkel.filmipood.repository.FilmRepository;
 import ee.mihkel.filmipood.repository.RentalRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,16 @@ public class RentalService {
     private final int PREMIUM_PRICE = 4;
     private final int BASIC_PRICE = 3;
 
+    @Getter
+    private int bonusPoints = 0;
+
 
     //@Transactional // keerab kõik andmebaasitegemised tagasi siit funktsioonist kui tuli kuskil kohas exception
-    public Rental startRental(List<Film> films) throws Exception {
+    public Rental startRental(List<Film> films) throws RuntimeException {
         for (Film film: films) {
             Film dbFilm = filmRepository.findById(film.getId()).orElseThrow();
             if (!dbFilm.isAvailable()) {
-                throw new Exception("Film with id " + dbFilm.getId() + " not available!");
+                throw new RuntimeException("Film with id " + dbFilm.getId() + " not available!");
             }
         }
 
@@ -49,8 +53,8 @@ public class RentalService {
         }
         rental.setSum(sum);
         rental.setLateFee(0);
-        rentalRepository.save(rental);
-        return rental;
+        return rentalRepository.save(rental);
+//        return rental;
     }
 
     private int calculateFilmPrice(Film dbFilm) {
@@ -82,25 +86,27 @@ public class RentalService {
     public List<Rental> endRental(List<FilmReturn> films) {
         for (FilmReturn f: films) {
             Film film = filmRepository.findById(f.getId()).orElseThrow();
-            film.setDays(0); // enne kindlasti lateFee arvutamine
-            film.setAvailable(true);
             Rental rental = film.getRental();
             if (f.getTotalDays() > film.getDays()) {
-                rental.setLateFee(rental.getLateFee() + calculateLateFee(film, f.getTotalDays()));
+                rental.setLateFee(rental.getLateFee() + calculateLateFeeAndBonusPoints(film, f.getTotalDays()));
             }
             rentalRepository.save(rental);
+            film.setDays(0); // enne kindlasti lateFee arvutamine
+            film.setAvailable(true);
             film.setRental(null);
             filmRepository.save(film);
         }
         return rentalRepository.findAll();
     }
 
-    private int calculateLateFee(Film film, int totalDays) {
+    private int calculateLateFeeAndBonusPoints(Film film, int totalDays) {
         switch (film.getType()) {
             case NEW -> {
+                bonusPoints += 2;
                 return (totalDays - film.getDays()) * PREMIUM_PRICE;
             }
             case REGULAR, OLD -> {
+                bonusPoints += 1;
                 return (totalDays - film.getDays()) * BASIC_PRICE;
             }
             case null, default -> {
