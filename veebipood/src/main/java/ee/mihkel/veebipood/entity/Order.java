@@ -16,9 +16,10 @@ import java.util.List;
 @Entity
 // nii "order" kui ka "user" on Postres juba reserveeritud
 @Table(name = "orders")
+@SequenceGenerator(name = "seq", initialValue = 313134200, allocationSize = 1)
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1, 2, 3, 4, 5 ....
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq") // 1, 2, 3, 4, 5 ....
     private Long id;
     private Date creation;
     private double totalSum;

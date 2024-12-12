@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
   // private ette kui teda pole HTMLs
   // private cartLS: CartProduct[] = [];
   cart: {"product": Product, "quantity": number}[] = [];
+  parcelMachines: any;
 
   constructor(private cartService: CartService,
     private productService: ProductService
@@ -34,6 +35,7 @@ export class CartComponent implements OnInit {
       });
     });
     this.cart = array;
+    this.getPMs("ee");
   }
 
   decreaseQuantity(cartRow: {"product": Product, "quantity": number}) {
@@ -51,5 +53,11 @@ export class CartComponent implements OnInit {
   saveOrder() {
     this.cartService.saveOrder(1).subscribe(() => localStorage.removeItem("cart"));
     this.cart.splice(0); // kustutab alates 0ndast indexist, lõpuni välja
+  }
+
+  getPMs(country: string) {
+    this.cartService.getParcelMachines(country).subscribe(data => {
+      this.parcelMachines = data;
+    })
   }
 }

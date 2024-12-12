@@ -7,12 +7,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    // --> see koht asendab selle, et iga controlleri päises ei peaks kirjutama
+    // @CrossOrigin()
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry
-                .addMapping("/**")
+                .addMapping("/**") // kõikidele API otspunktidele peale
                 .allowedOrigins("http://localhost:4200")
-                .allowedHeaders("*")
+                .allowedHeaders("*") // kõik headerid on lubatud
                 .allowedMethods("*");
     }
 }

@@ -9,3 +9,15 @@
 }
 
 <button (click)="saveOrder()">Telli</button>
+
+<br><br>
+
+<button (click)="getPMs('ee')">Eesti</button>
+<button (click)="getPMs('lv')">Läti</button>
+<button (click)="getPMs('lt')">Leedu</button>
+
+<select>
+@for (pm of parcelMachines; track pm) {
+  <option>{{pm.NAME}}</option>
+}
+</select>

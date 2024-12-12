@@ -40,14 +40,22 @@ public class OrderController {
 
     // POST localhost:8080/orders
     @PostMapping("orders")
-    public List<Order> addOrder(@RequestBody Order order) {
+    public String addOrder(@RequestBody Order order) {
         order.setCreation(new Date());
         // ctrl + alt + m
 //        OrderService orderService = new OrderService();
         double sum = orderService.calculateSum(order);
         order.setTotalSum(sum);
-        orderRepository.save(order);
-        return orderRepository.findByPerson_Id(order.getPerson().getId());
+        Order dbOrder = orderRepository.save(order);
+        return orderService.getPaymentLink(dbOrder);
+    }//payment_reference omab enda URL parameetris infot, kas makse õnnestus või ebaõnnestus
+    //SETTLED: ?order_reference=313134204&payment_reference=8e7d202424f3b4e4cbd294b60f02408d118bbddb1ca6206f5c728fd00efbe798
+    //SETTLED: ?order_reference=313134205&payment_reference=a59af5194096558f0bbc3f4c5c6a080ade74b2f637d35dd384f96d1218e54ee4
+    //FAILED: ?order_reference=313134206&payment_reference=42ce9e77adfbc04504cd78fdafef90b898f24368b9ce29524f88ed4bd0dd6b55
+
+    @GetMapping("check-payment")
+    public boolean checkPaymentStatus(@RequestParam String paymentRef) {
+        return orderService.checkPaymentStatus(paymentRef);
     }
 
     // Controlleris ei tohiks ühtegi funktsiooni olla, millel pole

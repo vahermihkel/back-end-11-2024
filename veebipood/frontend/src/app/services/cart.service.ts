@@ -55,4 +55,9 @@ export class CartService {
     this.cart.splice(index,1);
     this.saveToLocalStorage();
   }
+
+  getParcelMachines(country: string) {
+    //return this.http.get("http://localhost:8080/parcel-machines?country=" + country)
+    return this.http.get("http://localhost:8080/parcel-machines", {params: {country}})
+  }
 }

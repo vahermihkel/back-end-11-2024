@@ -42,22 +42,25 @@ public class VeebipoodApplication {
 // filtreerimine kategooriate alusel+++
 // leheküljed - Pagination+++
 
-//10.  10.12
+
+
+//10.  10.12   18.30-21.00
 // Päringud rakendusest välja -> RestTemplate (pakiautomaadid)
 
-//11.N 12.12
-// Makse (tagasi kaupmehe juurde)
+//11.N 12.12   17.45-21.00
+//Elektrihinnad + Makse (tagasi kaupmehe juurde)
 
-//12.T 17.12
+//12.T 17.12   17.45-21.00
+// Makse jätk
 // Autentimine
 // Spring Security
 
 //13.N 19.12
 // JWT Token
-// Rollid
 
 
 //14.E 23.12
+// Rollid
 // Shell-script
 // Profiilid - LIVE / TEST keskkonna vahetus
 // cron
@@ -65,7 +68,9 @@ public class VeebipoodApplication {
 //15.E 30.12
 // Docker
 
-//16.N 02.01 // Docker
-//17.T 07.01 Kubernetes
-//18.N 16.01 --> lõpuprojekt: vabalt valitud projekt Springi rakenduses
-// Ametlik lõpp: 16.01
+//16.N 02.01 // Docker 17.45-21.00
+//17.T 07.01 Kubernetes??? 17.45-21.00
+
+// 45minutit on vaja veel teha
+//18.N 16.01 2ak/h --> lõpuprojekt: vabalt valitud projekt Springi rakenduses    18.00-19.30 + 45min
+// Ametlik lõpp: 16.01           18.00-20.15
