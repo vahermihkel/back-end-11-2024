@@ -5,6 +5,7 @@ import ee.mihkel.veebipood.entity.Person;
 import ee.mihkel.veebipood.models.EmailPassword;
 import ee.mihkel.veebipood.models.Token;
 import ee.mihkel.veebipood.repository.PersonRepository;
+import ee.mihkel.veebipood.service.AuthService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,9 @@ public class PersonController {
     @Autowired
     ModelMapper modelMapper; // selle Autowire-damiseks pidime @Beani sees tegema = new ModelMapper()
 
+    @Autowired
+    AuthService authService;
+
     @PostMapping("login")
     public ResponseEntity<Token> login(@RequestBody EmailPassword emailPassword) {
         // 1. otsime isiku üles e-maili abil
@@ -37,7 +41,7 @@ public class PersonController {
         // 2. võrdleme isiku parooli sisestatud parooliga
         if (person.getPassword().equals(emailPassword.getPassword())) {
             // 3. tagastame Tokeni kui õnnestus.
-            Token token = new Token("base-64 formaat", new Date());
+            Token token = authService.getToken(person);
             return ResponseEntity.ok(token);
         }
         // 4. Tagastameveateate kui ei õnnestunud

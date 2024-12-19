@@ -56,14 +56,17 @@ public class VeebipoodApplication {
 // Spring Security
 
 //13.N 19.12
-// JWT Token
-
+// Autentimine Front-Endis
+// Rollid
+// angularis tõlge
+// ühe toote vaatamist
+// otsingumootor
 
 //14.E 23.12
-// Rollid
 // Shell-script
 // Profiilid - LIVE / TEST keskkonna vahetus
 // cron
+
 
 //15.E 30.12
 // Docker

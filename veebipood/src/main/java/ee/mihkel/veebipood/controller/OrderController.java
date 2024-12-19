@@ -1,11 +1,15 @@
 package ee.mihkel.veebipood.controller;
 
+import ee.mihkel.veebipood.entity.CartRow;
 import ee.mihkel.veebipood.entity.Order;
+import ee.mihkel.veebipood.entity.Person;
 import ee.mihkel.veebipood.entity.Product;
 import ee.mihkel.veebipood.repository.OrderRepository;
+import ee.mihkel.veebipood.repository.PersonRepository;
 import ee.mihkel.veebipood.repository.ProductRepository;
 import ee.mihkel.veebipood.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -37,10 +41,21 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+    @Autowired
+    private PersonRepository personRepository;
 
     // POST localhost:8080/orders
     @PostMapping("orders")
-    public String addOrder(@RequestBody Order order) {
+    public String addOrder(@RequestBody List<CartRow> cartRows) {
+
+        Order order = new Order();
+
+        Long id = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person = personRepository.findById(id).orElseThrow();
+        order.setPerson(person);
+
+        order.setCartRows(cartRows);
+
         order.setCreation(new Date());
         // ctrl + alt + m
 //        OrderService orderService = new OrderService();
