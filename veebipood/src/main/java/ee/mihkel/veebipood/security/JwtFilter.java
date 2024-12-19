@@ -56,7 +56,6 @@ public class JwtFilter extends BasicAuthenticationFilter {
         }
 
 
-
         super.doFilterInternal(request, response, chain);
     }
 }

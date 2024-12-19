@@ -20,7 +20,9 @@ export class ManageProductsComponent {
     );
   }
 
-  removeProduct(id: number) {
-    // TODO: kustutame toote back-endist
+  removeProduct(name: string) {
+    this.productService.deleteProduct(name).subscribe(response =>
+      this.products = response
+    );
   }
 }

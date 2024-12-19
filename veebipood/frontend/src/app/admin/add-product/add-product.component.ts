@@ -4,6 +4,8 @@ import { Nutrients, Product } from '../../models/Product';
 import { Category } from '../../models/Category';
 import { Characteristic } from '../../models/Characteristic';
 import { HttpClient } from '@angular/common/http';
+import { ProductService } from '../../services/product.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-add-product',
@@ -13,8 +15,18 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './add-product.component.css'
 })
 export class AddProductComponent {
+  message = "";
+  categories: Category[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private productService: ProductService,
+    private categoryService: CategoryService
+  ) {}
+
+  ngOnInit(): void {
+    this.categoryService.getCategories().subscribe(res => 
+      this.categories = res
+    )
+  }
 
   onSubmit(form: NgForm) {
     const val = form.value;
@@ -23,8 +35,14 @@ export class AddProductComponent {
       new Category(val.category, ""),
       [new Characteristic(val.characteristic, "")]
     );
-    this.http.post("http://localhost:8080/products", product).subscribe(() => {
-      form.reset();
-    });
+    console.log(JSON.stringify(product)); // body copy-pastemeks
+    this.productService.addProduct(product).subscribe({
+      next: () => {
+        form.reset();
+      },
+      error: (res) => {
+        this.message = res.error.name; // .name on meie pandud
+      }
+  });
   }
 }

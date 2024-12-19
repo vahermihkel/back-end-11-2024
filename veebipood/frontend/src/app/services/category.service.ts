@@ -17,11 +17,15 @@ export class CategoryService {
   }
 
   addCategory(newCategory: string): Observable<Category[]>  {
-    return this.http.post<any[]>(this.url, {"name": newCategory})
+    return this.http.post<any[]>(this.url, {"name": newCategory},
+      {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+    )
   }
 
   deleteCategory(id: number): Observable<Category[]>  {
-    return this.http.delete<any[]>(this.url + "/" + id);
+    return this.http.delete<any[]>(this.url + "/" + id,
+      {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+    );
   }
 
   

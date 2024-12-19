@@ -57,19 +57,25 @@ public class VeebipoodApplication {
 
 //13.N 19.12
 // Autentimine Front-Endis
+// Veahaldus front-endis
+// Kategooriad drop-downina
+
+//14.E 23.12 - 17.45-21.00
 // Rollid
+// sobivad veateated kui autentimisega vead
+// nuppude peitmine Navbaris kui pole sisse logitud
+// nupu näitamine sisselogitud staatust arvestades
+
 // angularis tõlge
 // ühe toote vaatamist
+// toote muutmine
 // otsingumootor
+// characteristikud check-boxidena
 
-//14.E 23.12
+//15.E 30.12 - 17.45-21.00
 // Shell-script
 // Profiilid - LIVE / TEST keskkonna vahetus
 // cron
-
-
-//15.E 30.12
-// Docker
 
 //16.N 02.01 // Docker 17.45-21.00
 //17.T 07.01 Kubernetes??? 17.45-21.00

@@ -10,14 +10,20 @@ export class SupplierService {
   constructor(private http: HttpClient) { }
 
   getStoreProducts() {
-    return this.http.get(this.url + "/store-products");
+    return this.http.get(this.url + "/store-products",
+      {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+    );
   }
 
   getEscuelaProducts() {
-    return this.http.get(this.url + "/escuela-products");
+    return this.http.get(this.url + "/escuela-products",
+      {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+    );
   }
 
   getBooks(search: string) {
-    return this.http.get(this.url + "/books", {params: {search}});
+    return this.http.get(this.url + "/books", {params: {search}, 
+      headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}
+    });
   }
 }

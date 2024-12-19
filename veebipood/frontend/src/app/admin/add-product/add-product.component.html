@@ -1,3 +1,5 @@
+<div>{{message}}</div>
+<br><br>
 <form #addProductForm="ngForm" (submit)="onSubmit(addProductForm)">
   <label>Name</label> <br>
   <input name="name" ngModel type="text"> <br>
@@ -8,7 +10,12 @@
   <label>Image</label> <br>
   <input name="image" ngModel type="text"> <br>
   <label>Category</label> <br>
-  <input name="category" ngModel type="text"> <br>
+  <!-- <input  type="text"> <br> -->
+   <select name="category" ngModel>
+    @for (category of categories; track category.id) {
+      <option value={{category.id}}>{{category.name}}</option>
+    }
+   </select> <br>
   <label>Protein</label> <br>
   <input name="protein" ngModel type="text"> <br>
   <label>Carbohydrate</label> <br>

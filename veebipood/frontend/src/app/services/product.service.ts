@@ -16,7 +16,9 @@ export class ProductService {
   }
 
   getAllProducts(): Observable<any> {
-    return this.http.get<any>("http://localhost:8080/all-products");
+    return this.http.get<any>("http://localhost:8080/all-products", 
+      {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+    );
   }
 
   getProduct(name: string): Observable<Product> {
@@ -24,11 +26,19 @@ export class ProductService {
   }
 
   addProduct(product: Product): Observable<Product[]> {
-    return this.http.post<Product[]>(this.url, product);
+    return this.http.post<Product[]>(this.url, product,
+      {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+    );
   }
 
   getCategoryProducts(categoryId: number): Observable<Product[]> {
     return this.http.get<Product[]>("http://localhost:8080/category-products", 
             {params: {categoryId}});
   }
+
+  deleteProduct(name: string): Observable<Product[]>  {
+      return this.http.delete<any[]>(this.url + "/" + name,
+        {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+      );
+    }
 }

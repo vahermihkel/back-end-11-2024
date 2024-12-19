@@ -70,7 +70,7 @@ public class ProductController {
     // String --> Sõnum, et ilusti lisatud
     // void --> kui errorit ei ole, järelikult õnnestus
 
-    @GetMapping("delete-product/{name}")
+    @DeleteMapping("products/{name}")
     public List<Product> deleteProduct(@PathVariable String name) {
 //        Product product = products.stream().filter(e -> e.getName().equals(name)).findFirst().orElse(null);
 //        products.remove(product);
