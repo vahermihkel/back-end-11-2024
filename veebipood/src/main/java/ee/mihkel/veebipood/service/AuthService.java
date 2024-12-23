@@ -19,9 +19,10 @@ public class AuthService {
     public Token getToken(Person person) {
         Date expirationDate = new Date((new Date()).getTime() + 20 * 60 * 1000);
 
-        Map<String, String> claims = new HashMap<>();
-        claims.put("id", person.getId().toString());
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", person.getId());
         claims.put("email", person.getEmail());
+        claims.put("admin", person.isAdmin());
 
         String securityKey = "QwY+AUVs/wXnJjDsYiTXPpYsS+BQ+s3zZWHKx+PAbH8=";
         Key signingKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(securityKey)); // ?
@@ -32,6 +33,6 @@ public class AuthService {
                 .signWith(signingKey)
                 .compact();
 
-        return new Token(jwtToken, expirationDate);
+        return new Token(jwtToken, expirationDate, person.isAdmin());
     }
 }

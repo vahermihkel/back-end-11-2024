@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -62,6 +63,7 @@ public class PersonController {
         if (person.getLastName() == null) {
             throw new RuntimeException("Isikut registreerides on perenimi puudu");
         }
+        person.setAdmin(false);
         personRepository.save(person);
         return ResponseEntity.status(HttpStatus.CREATED).body(personRepository.findAll()); // ResponseEntity --> võimaldab seadistada Headereid ja staatuskoodi
     } // ehk rohkem kontrolli enda käes
@@ -87,5 +89,19 @@ public class PersonController {
 //        ModelMapper modelMapper = new ModelMapper(); --> selle asemel @Autowired
         log.info(modelMapper);
         return ResponseEntity.ok().body(List.of(modelMapper.map(persons, PersonDTO[].class)));
+    }
+
+    @PatchMapping("make-admin")
+    public ResponseEntity<Person> makePersonAdmin(@RequestParam Long personId) {
+        Person dbPerson = personRepository.findById(personId).orElseThrow();
+        dbPerson.setAdmin(true);
+        return ResponseEntity.ok().body(personRepository.save(dbPerson));
+    }
+
+    @GetMapping("profile")
+    public ResponseEntity<Person> getProfile() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
+        Person person = personRepository.findByEmail(email);
+        return ResponseEntity.ok().body(person); // võiks teha DTO, kus tagastame vähem andmeid kui tegelikkuses front-endil vaja
     }
 }

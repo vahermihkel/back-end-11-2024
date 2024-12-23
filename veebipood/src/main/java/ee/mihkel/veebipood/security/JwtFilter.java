@@ -16,6 +16,8 @@ import org.springframework.security.authentication.RememberMeAuthenticationToken
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.jaas.JaasAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,7 @@ import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JwtFilter extends BasicAuthenticationFilter {
@@ -49,8 +52,15 @@ public class JwtFilter extends BasicAuthenticationFilter {
                     .parseSignedClaims(token)
                     .getPayload();
 
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            if (claims.get("admin").equals(true)) {
+                GrantedAuthority authority = new SimpleGrantedAuthority("admin");
+                authorities.add(authority);
+//                GrantedAuthority authority2 = new SimpleGrantedAuthority("super_admin");
+//                authorities.add(authority2);
+            }
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(claims.get("id"), claims.get("email"), new ArrayList<>());
+            Authentication authentication = new UsernamePasswordAuthenticationToken(claims.get("id"), claims.get("email"), authorities);
             // selle rea abil pääsetakse ligi
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

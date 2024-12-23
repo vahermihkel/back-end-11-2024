@@ -34,6 +34,7 @@ export class HomeComponent {
   ngOnInit(): void {
     this.loadCategories();
     this.loadProducts();
+    console.log("KÄivitasin home.componendi")
   }
 
   private loadCategories() {

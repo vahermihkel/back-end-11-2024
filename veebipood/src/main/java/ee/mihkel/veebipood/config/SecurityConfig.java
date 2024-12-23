@@ -30,7 +30,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/categories").permitAll()
                         .requestMatchers("/parcel-machines").permitAll()
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/signup").permitAll()    // .hasRole("ROLE_admin");
+                        .requestMatchers(HttpMethod.POST, "/products").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.PUT, "/products").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.POST, "/categories").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.DELETE, "/categories/**").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.PUT, "/categories").hasAuthority("admin")
+                        .requestMatchers(HttpMethod.PATCH, "/make-admin").hasAuthority("admin") // super_admin
                         .anyRequest().authenticated()) // kõik ülejäänud päringud --> 403 kui Filter sisse ei lase
                     .addFilterBefore(jwtFilter, BasicAuthenticationFilter.class); // iga päring läheb siia filtrisse kontrollimaks, kas pääsetakse läbi
         return http.build();

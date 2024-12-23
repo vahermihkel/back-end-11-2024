@@ -10,4 +10,8 @@ import java.util.Date;
 public class Token {
     private String token;
     private Date expiration;
+    private boolean admin; // õiged õigused on Tokeni küljes, mis valideerib
+    // läbi Tokeni kas isik saab kindlaid API päringuid teha.
+
+    // see muutuja admin on selleks, et kas näidata admin nuppu või mitte.
 }

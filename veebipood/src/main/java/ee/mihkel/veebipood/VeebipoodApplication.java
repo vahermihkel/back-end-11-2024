@@ -17,7 +17,7 @@ public class VeebipoodApplication {
 
 //6.  26.11
 // DTO -> Data Transfer Object+++
-// @Log4j2+++
+// @Log4j2+++ --> logifailid
 // @Autowired+++
 // ResponseEntity+++
 // Swagger+++
@@ -36,12 +36,8 @@ public class VeebipoodApplication {
 // VEAHALDUS - Exceptionid
 
 // FRONTEND:
-// angularis tõlge
-// ühe toote vaatamist
-// otsingumootor
-// filtreerimine kategooriate alusel+++
-// leheküljed - Pagination+++
-
+// filtreerimine kategooriate alusel
+// leheküljed - Pagination
 
 
 //10.  10.12   18.30-21.00
@@ -51,7 +47,6 @@ public class VeebipoodApplication {
 //Elektrihinnad + Makse (tagasi kaupmehe juurde)
 
 //12.T 17.12   17.45-21.00
-// Makse jätk
 // Autentimine
 // Spring Security
 
@@ -61,18 +56,21 @@ public class VeebipoodApplication {
 // Kategooriad drop-downina
 
 //14.E 23.12 - 17.45-21.00
-// Rollid
-// sobivad veateated kui autentimisega vead
-// nuppude peitmine Navbaris kui pole sisse logitud
-// nupu näitamine sisselogitud staatust arvestades
+// Rollid++
+// nuppude peitmine Navbaris kui pole sisse logitud++
+// nupu näitamine sisselogitud staatust arvestades++
 
+//15.E 30.12 - 17.45-21.00
+// sobivad veateated kui autentimisega vead
+
+// subject --> Ostukorvi kogusumma Navbaris.
 // angularis tõlge
 // ühe toote vaatamist
 // toote muutmine
 // otsingumootor
 // characteristikud check-boxidena
 
-//15.E 30.12 - 17.45-21.00
+
 // Shell-script
 // Profiilid - LIVE / TEST keskkonna vahetus
 // cron

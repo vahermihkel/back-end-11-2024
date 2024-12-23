@@ -9,6 +9,7 @@ import { AddProductComponent } from './admin/add-product/add-product.component';
 import { SupplierComponent } from './admin/supplier/supplier.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin/admin.component';
+import { authGuard } from './guards/auth.guard';
 
 // path: "cart"   --> see on, mis järgneb localhost:4200-le ehk
 //      baasURL-le    err.ee     err.ee/cart
@@ -20,11 +21,11 @@ export const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "cart", component: CartComponent},
   {path: "signup", component: SignupComponent},
-  {path: "manage-category", component: ManageCategoryComponent},
-  {path: "manage-characteristics", component: ManageCharacteristicsComponent},
-  {path: "manage-products", component: ManageProductsComponent},
-  {path: "add-product", component: AddProductComponent},
-  {path: "supplier", component: SupplierComponent},
+  {path: "manage-category", component: ManageCategoryComponent, canActivate: [authGuard]},
+  {path: "manage-characteristics", component: ManageCharacteristicsComponent, canActivate: [authGuard]},
+  {path: "manage-products", component: ManageProductsComponent, canActivate: [authGuard]},
+  {path: "add-product", component: AddProductComponent, canActivate: [authGuard]},
+  {path: "supplier", component: SupplierComponent, canActivate: [authGuard]},
   {path: "login", component: LoginComponent},
-  {path: "admin", component: AdminComponent},
+  {path: "admin", component: AdminComponent, canActivate: [authGuard]},
 ];

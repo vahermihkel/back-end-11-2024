@@ -6,6 +6,7 @@ export class Person {
     public firstName: string,
     public lastName: string,
     public address: Address,
+    public admin: boolean
   ) {}
 }
 
