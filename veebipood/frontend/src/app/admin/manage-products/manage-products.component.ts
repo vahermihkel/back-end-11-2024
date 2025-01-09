@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-manage-products',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './manage-products.component.html',
   styleUrl: './manage-products.component.css'
 })

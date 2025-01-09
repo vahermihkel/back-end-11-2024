@@ -4,9 +4,13 @@
   <button (click)="decreaseQuantity(cartRow)">-</button>
   <div>{{cartRow.quantity}} tk</div>
   <button (click)="increaseQuantity(cartRow)">+</button>
-  <div>{{cartRow.product.price * cartRow.quantity}} €</div>
+  <div>{{(cartRow.product.price * cartRow.quantity).toFixed(2)}} €</div>
   <button (click)="deleteFromCart($index)">Delete from cart</button>
 }
+
+<div>Total: {{calculateCartSum().toFixed(2)}}€</div>
+
+<br><br>
 
 <button (click)="saveOrder()">Telli</button>
 

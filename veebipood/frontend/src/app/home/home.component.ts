@@ -4,11 +4,13 @@ import { CartService } from '../services/cart.service';
 import { Product } from '../models/Product';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/Category';
+import { TranslatePipe } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [TranslatePipe, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -75,6 +77,7 @@ export class HomeComponent {
 
   changePageSize(newSize: number){
     this.pageSize = newSize;
+    this.currentPage = 1;
     this.productService.getProducts(this.currentPage, this.pageSize).subscribe(response => {
       this.products = response.content;
       this.pages = [];

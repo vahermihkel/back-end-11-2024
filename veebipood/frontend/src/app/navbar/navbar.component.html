@@ -7,7 +7,7 @@
       <a class="navbar-brand" routerLink="/">Webshop</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/cart">Cart</a>
+          <a class="nav-link active" aria-current="page" routerLink="/cart">{{"nav.cart" | translate}}</a>
         </li>
         @if (admin) {
           <li class="nav-item">
@@ -24,13 +24,16 @@
       } @else {
         <ul class="navbar-nav me mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
+            <a class="nav-link" routerLink="/login">{{"nav.login" | translate}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/signup">Signup</a>
+            <a class="nav-link" routerLink="/signup">{{"nav.signup" | translate}}</a>
           </li>
         </ul>
       }
+      <div>{{sum.toFixed(2)}} €</div>
+      <button (click)="useLanguage('en')">en</button>
+      <button (click)="useLanguage('et')">et</button>
     </div>
   </div>
 </nav>

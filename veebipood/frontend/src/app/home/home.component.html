@@ -15,8 +15,9 @@
 
 @for (product of products; track product.name) {
   <div>{{ product.name }} - {{ product.price }}€</div>
-  <button (click)="addToCart(product)">Add to cart</button>
-}
+  <button (click)="addToCart(product)">{{"home.add-to-cart" | translate}}</button>
+  <button routerLink='{{"/product/" + product.name}}'>{{"home.view" | translate}}</button>
+} 
 
 <br><br>
 

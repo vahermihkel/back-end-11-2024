@@ -10,6 +10,10 @@ import { SupplierComponent } from './admin/supplier/supplier.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { authGuard } from './guards/auth.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { EditProductComponent } from './admin/edit-product/edit-product.component';
+import { SingleProductComponent } from './single-product/single-product.component';
+// import { checkAuthGuard } from './guards/check-auth.guard';
 
 // path: "cart"   --> see on, mis järgneb localhost:4200-le ehk
 //      baasURL-le    err.ee     err.ee/cart
@@ -28,4 +32,7 @@ export const routes: Routes = [
   {path: "supplier", component: SupplierComponent, canActivate: [authGuard]},
   {path: "login", component: LoginComponent},
   {path: "admin", component: AdminComponent, canActivate: [authGuard]},
+  {path: "edit-product/:productName", component: EditProductComponent, canActivate: [authGuard]},
+  {path: "product/:productName", component: SingleProductComponent},
+  {path: "**", component: NotFoundComponent},
 ];

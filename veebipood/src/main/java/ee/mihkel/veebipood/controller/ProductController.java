@@ -63,6 +63,23 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    @PutMapping("products")
+    public Product editProduct(@RequestBody Product product) {
+        if (product.getName() == null) {
+            throw new RuntimeException("Nimi puudu");
+        }
+
+        if (product.getPrice() < 0) {
+            throw new RuntimeException("Hind ei saa olla negatiivne");
+        }
+
+        if (!productRepository.existsById(product.getName())) {
+            throw new RuntimeException("Sellise IDga toodet ei ole");
+        }
+
+        return productRepository.save(product);
+    }
+
 
     // Variandid, mida tagastada pärast lisamist:
     // List<String> --> uuenenud list

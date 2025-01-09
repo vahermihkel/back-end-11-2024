@@ -1,0 +1,11 @@
+@if (loading === true) {
+  <div>Loading...</div>
+} @else if (product === undefined) {
+  <div>Product not found</div>
+} @else {
+  <div>{{product.name}}</div>
+  <div>{{product.price}}</div>
+  <div>{{product.active}}</div>
+  <div>{{product.image}}</div>
+  <div>{{product.category.name}}</div>
+}

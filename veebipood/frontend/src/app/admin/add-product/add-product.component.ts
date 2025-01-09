@@ -30,9 +30,9 @@ export class AddProductComponent {
 
   onSubmit(form: NgForm) {
     const val = form.value;
-    const product = new Product(0, val.name, val.price, val.active, val.image, 
-      new Nutrients(0, val.protein, val.carbohydrate, val.fat),
-      new Category(val.category, ""),
+    const product = new Product(val.name, val.price, val.active, val.image, 
+      new Nutrients(val.protein, val.carbohydrate, val.fat),
+      new Category(val.category),
       [new Characteristic(val.characteristic, "")]
     );
     console.log(JSON.stringify(product)); // body copy-pastemeks

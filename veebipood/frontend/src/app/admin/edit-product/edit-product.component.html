@@ -1,0 +1,32 @@
+<div>{{message}}</div>
+
+@if (editProductForm) {
+  <form [formGroup]="editProductForm" (submit)="onSubmit()">
+    <label>Name</label><br>
+    <input formControlName="name" type="text"> <br>
+    <label>Price</label><br>
+    <input formControlName="price" type="number"> <br>
+    <label>Active</label><br>
+    <input formControlName="active" type="text"> <br>
+    <label>Protein</label><br>
+    <input formControlName="protein" type="number"> <br>
+    <label>Carb</label><br>
+    <input formControlName="carb" type="number"> <br>
+    <label>Fat</label><br>
+    <input formControlName="fat" type="number"> <br>
+    <label>Category</label><br>
+    <!-- <input  type="text"> <br> -->
+    <select formControlName="category">
+      @for (category of categories; track category) {
+        <option [value]="category.id">{{category.name}}</option>
+      }
+    </select> <br>
+    @for (characteristic of characteristics; track characteristic) {
+      <input [id]="'char-' + characteristic.id" (change)="toggleCharacteristics(characteristic.id)" type="checkbox" [defaultChecked]="isChecked(characteristic.id)">
+      <label [for]="'char-' +  + characteristic.id">{{characteristic.name}}</label>
+    } <br>
+    <label>Image</label><br>
+    <input formControlName="image" type="text"> <br>
+    <button>Change</button>
+  </form>
+}

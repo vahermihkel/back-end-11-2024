@@ -18,7 +18,7 @@
     <td>{{ product.nutrients.carbohydrate }}</td>
     <td>{{ product.nutrients.fat }}</td>
     <td> <button (click)="removeProduct(product.name)">x</button> </td>
-    <td> <button routerLink="TODO: muuda URL">Muuda</button> </td>
+    <td> <button routerLink='{{"/edit-product/" + product.name}}'>Muuda</button> </td>
   </tr>
 }
 </table>

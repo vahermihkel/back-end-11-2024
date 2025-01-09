@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Product } from '../models/Product';
 import { HttpClient } from '@angular/common/http';
 import { CartProduct } from '../models/CartProduct';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private cart: CartProduct[] = JSON.parse(localStorage.getItem("cart") || "[]");
+  cartSumSubject = new BehaviorSubject(this.calculateTotal());
 
   constructor(private http: HttpClient) { }
 
@@ -16,19 +18,19 @@ export class CartService {
       {"cartRows": this.cart, "person": {"id": personId}});
   }
 
-  private saveToLocalStorage() {
+  private updateNavbarSumAndSaveToLS() {
     localStorage.setItem("cart", JSON.stringify(this.cart));
-    console.log("TEST");
+    this.cartSumSubject.next(this.calculateTotal());
   }
 
   addToCart(productClicked: Product) {
-    const cartRow = this.cart.find(p => p.productName === productClicked.name);
+    const cartRow = this.cart.find(p => p.product.name === productClicked.name);
     if (cartRow !== undefined) {
       cartRow.quantity++;
     } else {
-      this.cart.push({"productName": productClicked.name, "quantity": 1})
+      this.cart.push({"product": productClicked, "quantity": 1})
     }
-    this.saveToLocalStorage();
+    this.updateNavbarSumAndSaveToLS();
     // JSON.parse --> võtab jutumärgid ära.
     // localStorage-sse pannes ja võttes on alati jutumärgid ümber
   }
@@ -43,21 +45,29 @@ export class CartService {
       const index = this.cart.indexOf(cartRow);
       this.cart.splice(index, 1);
     }
-    this.saveToLocalStorage();
+    this.updateNavbarSumAndSaveToLS();
   }
 
   increaseQuantity(cartRow: any) {
     cartRow.quantity++;
-    this.saveToLocalStorage();
+    this.updateNavbarSumAndSaveToLS();
   }
 
   remove(index: number) {
     this.cart.splice(index,1);
-    this.saveToLocalStorage();
+    this.updateNavbarSumAndSaveToLS();
   }
 
   getParcelMachines(country: string) {
     //return this.http.get("http://localhost:8080/parcel-machines?country=" + country)
     return this.http.get("http://localhost:8080/parcel-machines", {params: {country}})
+  }
+
+  calculateTotal() {
+    let sum = 0;
+    this.cart.forEach(cartProduct => {
+      sum += cartProduct.product.price * cartProduct.quantity;
+    });
+    return sum;
   }
 }

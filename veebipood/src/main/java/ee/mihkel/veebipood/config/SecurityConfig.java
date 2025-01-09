@@ -27,7 +27,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 2 varianti. kas tekitame nimekirja mida peab autentima või kuhu lubame
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/product/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/categories").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/characteristics").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/category-products").permitAll()
                         .requestMatchers("/parcel-machines").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/signup").permitAll()    // .hasRole("ROLE_admin");

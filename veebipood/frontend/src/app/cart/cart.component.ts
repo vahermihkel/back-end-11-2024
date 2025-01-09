@@ -27,14 +27,15 @@ export class CartComponent implements OnInit {
   // Service-tel pole ngOnIniti võimalik panna
   ngOnInit(): void {
     // kui pöördun funktsiooni sees ülemiste klassi muutujate poole, pean kasutama alati this.
-    const cartLS: CartProduct[] = this.cartService.getCart();
-    let array: {"product": Product, "quantity": number}[] = []; // seda pole vaja???
-    cartLS.forEach(cartRow => {
-      this.productService.getProduct(cartRow.productName).subscribe(res => {
-        array.push({"product": res, "quantity": cartRow.quantity});
-      });
-    });
-    this.cart = array;
+    // const cartLS: CartProduct[] = this.cartService.getCart();
+    // let array: {"product": Product, "quantity": number}[] = []; // seda pole vaja???
+    // cartLS.forEach(cartRow => {
+    //   this.productService.getProduct(cartRow.productName).subscribe(res => {
+    //     array.push({"product": res, "quantity": cartRow.quantity});
+    //   });
+    // });
+    // this.cart = array;
+    this.cart = this.cartService.getCart();
     this.getPMs("ee");
   }
 
@@ -59,5 +60,9 @@ export class CartComponent implements OnInit {
     this.cartService.getParcelMachines(country).subscribe(data => {
       this.parcelMachines = data;
     })
+  }
+
+  calculateCartSum() {
+    return this.cartService.calculateTotal();
   }
 }

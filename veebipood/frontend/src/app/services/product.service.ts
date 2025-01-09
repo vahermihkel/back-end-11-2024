@@ -41,4 +41,10 @@ export class ProductService {
         {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
       );
     }
+
+  editProduct(product: Product) {
+    return this.http.put<any[]>(this.url, product,
+      {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
+    );
+  }
 }
