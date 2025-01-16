@@ -36,13 +36,20 @@ public class ProductController {
 
     // localhost:8080/products?size=3&page=0
     @GetMapping("products")
-    public Page<Product> getProducts(Pageable pageable) {
-        return productRepository.findAll(pageable); // SELECT * FROM products;
+    public Page<Product> getProducts(Pageable pageable, @RequestParam Long categoryId, String search) {
+        if (categoryId > 0 && search.isEmpty()) {
+            return productRepository.findByCategory_Id(categoryId, pageable);
+        } else if (categoryId == 0 && !search.isEmpty()) {
+            return productRepository.findByNameContains(search, pageable);
+        } else if (categoryId > 0 && !search.isEmpty()) {
+            return productRepository.findByCategory_IdAndNameContains(categoryId, search, pageable);
+        }
+        return productRepository.findAll(pageable);
     }
 
     @GetMapping("all-products")
     public List<Product> getProducts() {
-        return productRepository.findAll(); // SELECT * FROM products;
+        return productRepository.findByOrderByNameAsc(); // SELECT * FROM products;
     }
 
     @GetMapping("product/{name}")
@@ -60,7 +67,7 @@ public class ProductController {
     public List<Product> addProduct(@RequestBody Product product) {
         //products.add(new Product(name, price, true, ""));
         productRepository.save(product);
-        return productRepository.findAll();
+        return productRepository.findByOrderByNameAsc();
     }
 
     @PutMapping("products")
@@ -92,7 +99,7 @@ public class ProductController {
 //        Product product = products.stream().filter(e -> e.getName().equals(name)).findFirst().orElse(null);
 //        products.remove(product);
         productRepository.deleteById(name); // DELETE FROM products WHERE id = "Coca"
-        return productRepository.findAll();
+        return productRepository.findByOrderByNameAsc();
     }
 
     @GetMapping("random-product")

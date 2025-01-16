@@ -24,6 +24,12 @@ public class AuthService {
         claims.put("email", person.getEmail());
         claims.put("admin", person.isAdmin());
 
+//        Map<String, String> claims = new HashMap<>();
+//        claims.put("id", person.getId().toString());
+//        claims.put("email", person.getEmail());
+//        claims.put("admin", String.valueOf(person.isAdmin()));
+
+
         String securityKey = "QwY+AUVs/wXnJjDsYiTXPpYsS+BQ+s3zZWHKx+PAbH8=";
         Key signingKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(securityKey)); // ?
 

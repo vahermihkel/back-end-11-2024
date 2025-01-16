@@ -4,6 +4,7 @@ import ee.mihkel.veebipood.entity.CartRow;
 import ee.mihkel.veebipood.entity.Order;
 import ee.mihkel.veebipood.entity.Person;
 import ee.mihkel.veebipood.entity.Product;
+import ee.mihkel.veebipood.models.EveryPayLink;
 import ee.mihkel.veebipood.repository.OrderRepository;
 import ee.mihkel.veebipood.repository.PersonRepository;
 import ee.mihkel.veebipood.repository.ProductRepository;
@@ -46,11 +47,10 @@ public class OrderController {
 
     // POST localhost:8080/orders
     @PostMapping("orders")
-    public String addOrder(@RequestBody List<CartRow> cartRows) {
-
+    public EveryPayLink addOrder(@RequestBody List<CartRow> cartRows) {
         Order order = new Order();
 
-        Long id = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long id =  Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         Person person = personRepository.findById(id).orElseThrow();
         order.setPerson(person);
 

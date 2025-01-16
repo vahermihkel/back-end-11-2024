@@ -6,11 +6,12 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../models/Category';
 import { TranslatePipe } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TranslatePipe, RouterLink],
+  imports: [TranslatePipe, RouterLink, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -20,11 +21,16 @@ export class HomeComponent {
   // kui vajutada paremale noolele, siis suurendab leheküljenumbrit
   // disabled kui on esimesel või viimasel lehel
   products: Product[] = [];
-  currentPage = 1;
-  pageSize = 3;
+  // currentPage = 1;
+  // pageSize = 3;
   pages: number[] = [];
   totalElements = 0;
   categories: Category[] = [];
+  // sort = "name";
+  // direction = "asc";
+  // activeCategoryId = 0;
+  params = {search: "", activeCategoryId: 0, currentPage: 1, pageSize: 3, sort: "name", direction: "asc"};
+  searched = "";
 
   // failide sidumiseks
   constructor(private productService: ProductService,
@@ -35,7 +41,7 @@ export class HomeComponent {
   // lehele tuleku käima minemise funktsioon
   ngOnInit(): void {
     this.loadCategories();
-    this.loadProducts();
+    this.loadProducts(true);
     console.log("KÄivitasin home.componendi")
   }
 
@@ -45,23 +51,35 @@ export class HomeComponent {
     })
   }
 
-  private loadProducts() {
-    this.productService.getProducts(this.currentPage, this.pageSize).subscribe(response => {
+  private loadProducts(loadPages: boolean) {
+    this.productService.getProducts(this.params).subscribe(response => {
       this.products = response.content;
-      this.totalElements = response.totalElements;
-      this.pages = [];
-      for (let index = 1; index <= response.totalPages; index++) {
-        this.pages.push(index);
+      if (loadPages) {
+        this.totalElements = response.totalElements;
+        this.pages = [];
+        for (let index = 1; index <= response.totalPages; index++) {
+          this.pages.push(index);
+        }
       }
     });
   }
 
-  // TODO: getCategoryProducts tagastab mulle kõik tooted, mitte LK kaupa
-  filterByCategory(categoryId: number) {
-    this.productService.getCategoryProducts(categoryId).subscribe(res => {
-      this.products = res;
-    })
+  filterBySearch() {
+    this.params.search = this.searched;
+    this.params.currentPage = 1;
+    this.loadProducts(true);
+  }
 
+  filterByCategory(categoryId: number) {
+    this.params.activeCategoryId = categoryId;
+    this.params.currentPage = 1;
+    this.loadProducts(true);
+  }
+
+  changeSort(sort: string, direction: string) {
+    this.params.sort = sort;
+    this.params.direction = direction;
+    this.loadProducts(false);
   }
 
   addToCart(product: Product) {
@@ -69,21 +87,13 @@ export class HomeComponent {
   }
 
   changePage(newPage: number){
-    this.currentPage = newPage;
-    this.productService.getProducts(this.currentPage, this.pageSize).subscribe(response => 
-      this.products = response.content
-    );
+    this.params.currentPage = newPage;
+    this.loadProducts(false);
   }
 
   changePageSize(newSize: number){
-    this.pageSize = newSize;
-    this.currentPage = 1;
-    this.productService.getProducts(this.currentPage, this.pageSize).subscribe(response => {
-      this.products = response.content;
-      this.pages = [];
-      for (let index = 1; index <= response.totalPages; index++) {
-        this.pages.push(index);
-      }
-    });
+    this.params.pageSize = newSize;
+    this.params.currentPage = 1;
+    this.loadProducts(true);
   }
 }

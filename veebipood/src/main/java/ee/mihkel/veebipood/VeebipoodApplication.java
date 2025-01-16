@@ -98,15 +98,16 @@ public class VeebipoodApplication {
 // characteristikud check-boxidena+++
 // Avalehel ei tööta Kategooria peale vajutused+++
 
-// otsingumootor
-// Kui kategooria all pole ühtegi toodet, mis teeme???
-// Kui on kategooria mõnes tootes ei saa seda kustutada, Tootega sama
-// Kui muudame Adminis kedagi, et ta ei läheks lõppu
-// Registreerudes ---> Suunab Login lehele, et logiks sisse.
+// otsingumootor++
+// Kui on kategooria mõnes tootes ei saa seda kustutada, Tootega sama++
+// Kui muudame Adminis kedagi, et ta ei läheks lõppu++
+// Registreerudes ---> Suunab Login lehele, et logiks sisse.++
 
 // Shell-script
 // Profiilid - LIVE / TEST keskkonna vahetus
 // cron
+
+// Kui kategooria all pole ühtegi toodet, mis teeme???
 
 // Allkirjaleht
 //16.N 09.01 ---> kui teen refreshi, siis peab enne kasutaja leidma kui guardi sisse läheb
@@ -116,4 +117,4 @@ public class VeebipoodApplication {
 //Tegelikult:
 //16.N 09.01   17.45-21.00 ---> Githubist vaatame: CGI, kümnevõistlus, bowling
 //17.N 16.01   17.45-21.00
-//18.N 23.01  lõpuprojekti esitlemine  18.00-20.15  -- CSS
+//18.N 23.01  lõpuprojekti esitlemine  17.45-20.00  -- CSS

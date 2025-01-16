@@ -76,7 +76,7 @@ export class EditProductComponent {
         );
         // TODO: Kui ei õnnestu, siis ei suuna
     this.productService.editProduct(product).subscribe({
-      next: (res) => {this.router.navigateByUrl("/manage-products")},
+      next: () => {this.router.navigateByUrl("/manage-products")},
       error: (res) => {
         this.message = res.error.name}
     });

@@ -13,6 +13,7 @@ import { CategoryService } from '../../services/category.service';
 export class ManageCategoryComponent {
   categories: any[] = [];
   newCategory = "";
+  message = "";
 
   constructor(private categoryService: CategoryService) {} // siia mida ei eksisteeri tavalises JavaScriptis
 
@@ -30,8 +31,13 @@ export class ManageCategoryComponent {
   }
 
   removeCategory(id: number) {
-    this.categoryService.deleteCategory(id).subscribe(res =>
-      this.categories = res
-    );
+    this.categoryService.deleteCategory(id).subscribe({
+    next: (res) => {
+      this.categories = res;
+    },
+    error: (message) => {
+      this.message = message.error.name;
+    }
+    });
   }
 }

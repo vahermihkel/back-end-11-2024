@@ -13,9 +13,14 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
-  saveOrder(personId: number) {
-    return this.http.post("http://localhost:8080/orders", 
-      {"cartRows": this.cart, "person": {"id": personId}});
+  saveOrder() {
+    return this.http.post<{url: string}>("http://localhost:8080/orders", 
+      this.cart,
+      {headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
+      }}
+    );
   }
 
   private updateNavbarSumAndSaveToLS() {

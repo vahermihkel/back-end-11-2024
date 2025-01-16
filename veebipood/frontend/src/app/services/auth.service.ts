@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, Subject, tap } from 'rxjs';
 import { Person } from '../models/Person';
 
 type Token = {token: string, expiration: Date, admin: boolean}
@@ -18,19 +18,19 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  determineIfLoggedIn() {
+  determineIfLoggedIn(): Observable<boolean> {
     return this.http.get<Person>(this.backendUrl + "/profile",
       {headers: {"Authorization": "Bearer " + sessionStorage.getItem("token")}}
     ).pipe(
-      tap(response => { 
+      map(response => { 
         if (response.id && response.email) {
           this.loggedInStatus.next({loggedIn: true, admin: response.admin});
         } else {
           this.loggedInStatus.next({loggedIn: false, admin: false});
         }
+        return response.admin;
       })
     );
-    // return {loggedIn: false, admin: false};
   }
 
   login(value: {email: string, password: string}): Observable<Token> {

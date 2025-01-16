@@ -2,6 +2,10 @@
 
 <!-- VANA ANGULAR: <div *ngFor=""></div> -->
 
+<label>Otsi: </label>
+<input [(ngModel)]="searched" (ngModelChange)="filterBySearch()" type="text">
+
+<button (click)="filterByCategory(0)">Kõik kategooriad</button>
 @for (category of categories; track category.id) {
   <button (click)="filterByCategory(category.id)">{{category.name}}</button>
 }
@@ -12,6 +16,12 @@
 <button (click)="changePageSize(2)">2</button>
 <button (click)="changePageSize(3)">3</button>
 <button (click)="changePageSize(4)">4</button>
+<br><br>
+<button (click)="changeSort('name', 'asc')">Sorteeri A-Z</button>
+<button (click)="changeSort('name', 'desc')">Sorteeri Z-A</button>
+<button (click)="changeSort('price', 'asc')">Sorteeri hind kasvavalt</button>
+<button (click)="changeSort('price', 'desc')">Sorteeri hind kahanevalt</button>
+<br><br>
 
 @for (product of products; track product.name) {
   <div>{{ product.name }} - {{ product.price }}€</div>
@@ -22,7 +32,7 @@
 <br><br>
 
 @for (page of pages; track page) {
-  <button [class.active-page]="currentPage === page" (click)="changePage(page)">{{page}}</button>
+  <button [class.active-page]="params.currentPage === page" (click)="changePage(page)">{{page}}</button>
 }
 
 <!-- ctrl+ä <button (click)="fetchProducts()">Fetchi tooted</button> -->

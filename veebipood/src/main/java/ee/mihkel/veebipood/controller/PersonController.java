@@ -51,17 +51,20 @@ public class PersonController {
 
     @PostMapping("signup")
     public ResponseEntity<List<Person>> signup(@RequestBody Person person) {
-        if (person.getEmail() == null) {
+        if (person.getEmail() == null || person.getEmail().isBlank()) {
             throw new RuntimeException("Isikut registreerides on e-mail puudu");
         }
-        if (person.getPassword() == null) {
+        if (person.getPassword() == null || person.getPassword().isBlank()) {
             throw new RuntimeException("Isikut registreerides on parool puudu");
         }
-        if (person.getFirstName() == null) {
+        if (person.getFirstName() == null || person.getFirstName().isBlank()) {
             throw new RuntimeException("Isikut registreerides on eesnimi puudu");
         }
-        if (person.getLastName() == null) {
+        if (person.getLastName() == null || person.getLastName().isBlank()) {
             throw new RuntimeException("Isikut registreerides on perenimi puudu");
+        }
+        if (personRepository.findByEmail(person.getEmail()) != null) {
+            throw new RuntimeException("Sellise e-mailiga isik on juba olemas");
         }
         person.setAdmin(false);
         personRepository.save(person);

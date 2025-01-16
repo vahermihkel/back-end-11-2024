@@ -52,7 +52,10 @@ export class CartComponent implements OnInit {
   }
 
   saveOrder() {
-    this.cartService.saveOrder(1).subscribe(() => localStorage.removeItem("cart"));
+    this.cartService.saveOrder().subscribe((res) => {
+      window.location.href = res.url;
+      localStorage.removeItem("cart");
+    });
     this.cart.splice(0); // kustutab alates 0ndast indexist, lõpuni välja
   }
 

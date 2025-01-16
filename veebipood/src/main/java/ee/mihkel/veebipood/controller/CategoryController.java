@@ -37,7 +37,11 @@ public class CategoryController {
     @DeleteMapping("categories/{id}")
     public List<Category> deleteCategory(@PathVariable Long id) {
         log.info("Kategooria kustutas {}", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        categoryRepository.deleteById(id);
+        try {
+            categoryRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Ei saa kustutada kategooriat millel on tooted");
+        }
         return categoryRepository.findAll();
     }
 

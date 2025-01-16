@@ -29,6 +29,10 @@ public class Order {
     // OneToOne  --> parempoolne on One  -  mul ei ole listi
     @ManyToOne
     private Person person;
+
+    //@OneToOne
+    //private EmailPhone emailPhone; ---> siis kui sisselogimata
+
     // OneToOne --> täpselt 1 tabeli kirje on seotud teise tabeliga täpselt ühe kirjega.
     // kui kustutakse ära see, kelle küljes ta on, siis kustub ära ka kirje teisest tabelist.
 

@@ -5,9 +5,11 @@ import ee.mihkel.veebipood.entity.Order;
 import ee.mihkel.veebipood.entity.Product;
 import ee.mihkel.veebipood.models.EveryPayCheck;
 import ee.mihkel.veebipood.models.EveryPayData;
+import ee.mihkel.veebipood.models.EveryPayLink;
 import ee.mihkel.veebipood.models.EveryPayResponse;
 import ee.mihkel.veebipood.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +29,18 @@ public class OrderService {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Value("${everypay.url}")
+    private String url;
+
+    @Value("${everypay.username}")
+    private String username;
+
+    @Value("${everypay.password}")
+    private String password;
+
+    @Value("${everypay.customerUrl}")
+    private String customerUrl;
 
     public double calculateSum(Order order) {
         double sum = 0;
@@ -50,11 +64,11 @@ public class OrderService {
         return proteins;
     }
 
-    public String getPaymentLink(Order dbOrder) {
+    public EveryPayLink getPaymentLink(Order dbOrder) {
 
-        String url = "https://igw-demo.every-pay.com/api/v4/payments/oneoff";
-        String username = "92ddcfab96e34a5f";
-        String password = "8cd19e99e9c2c208ee563abf7d0e4dad";
+//        String url = "https://igw-demo.every-pay.com/api/v4/payments/oneoff";
+//        String username = "92ddcfab96e34a5f";
+//        String password = "8cd19e99e9c2c208ee563abf7d0e4dad";
 
         // body
         EveryPayData body = new EveryPayData();
@@ -63,7 +77,7 @@ public class OrderService {
         body.setTimestamp(ZonedDateTime.now().toString());
         body.setAmount(dbOrder.getTotalSum());
         body.setOrder_reference(dbOrder.getId().toString());
-        body.setCustomer_url("https://err.ee");
+        body.setCustomer_url(customerUrl);
         body.setApi_username(username);
 
         // headers
@@ -75,12 +89,15 @@ public class OrderService {
         // päring ise
         HttpEntity<EveryPayData> entity = new HttpEntity<>(body, headers);
         ResponseEntity<EveryPayResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, EveryPayResponse.class);
-        return response.getBody().getPayment_link();
+
+        EveryPayLink link = new EveryPayLink();
+        link.setUrl(response.getBody().getPayment_link());
+        return link;
     }
 
     public boolean checkPaymentStatus(String paymentRef) {
-        String username = "92ddcfab96e34a5f";
-        String password = "8cd19e99e9c2c208ee563abf7d0e4dad";
+//        String username = "92ddcfab96e34a5f";
+//        String password = "8cd19e99e9c2c208ee563abf7d0e4dad";
 
         String url = "https://igw-demo.every-pay.com/api/v4/payments/" +
                 paymentRef + "?api_username=" + username + "&detailed=false";
