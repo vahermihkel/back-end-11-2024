@@ -1,11 +1,15 @@
 @for (cartRow of cart; track cartRow) {
-  <div>{{cartRow.product.name}}</div>
-  <div>{{cartRow.product.price}} €</div>
-  <button (click)="decreaseQuantity(cartRow)">-</button>
-  <div>{{cartRow.quantity}} tk</div>
-  <button (click)="increaseQuantity(cartRow)">+</button>
-  <div>{{(cartRow.product.price * cartRow.quantity).toFixed(2)}} €</div>
-  <button (click)="deleteFromCart($index)">Delete from cart</button>
+  <div class="product">
+    <div class="name">{{cartRow.product.name}}</div>
+    <div class="price">{{cartRow.product.price}} €</div>
+    <div class="quantity">
+      <button (click)="decreaseQuantity(cartRow)">-</button>
+      <div>{{cartRow.quantity}} tk</div>
+      <button (click)="increaseQuantity(cartRow)">+</button>
+    </div>
+    <div class="total">{{(cartRow.product.price * cartRow.quantity).toFixed(2)}} €</div>
+    <button (click)="deleteFromCart($index)">x</button>
+  </div>
 }
 
 <div>Total: {{calculateCartSum().toFixed(2)}}€</div>

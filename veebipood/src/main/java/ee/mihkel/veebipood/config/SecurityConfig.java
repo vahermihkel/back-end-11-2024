@@ -31,7 +31,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/categories").permitAll()
                         .requestMatchers(HttpMethod.GET, "/characteristics").permitAll()
                         .requestMatchers(HttpMethod.GET, "/category-products").permitAll()
-                        .requestMatchers("/parcel-machines").permitAll()
+                        .requestMatchers("/parcel-machines").permitAll()                        .requestMatchers("/parcel-machines").permitAll()
+                        .requestMatchers("/nord-pool").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/signup").permitAll()    // .hasRole("ROLE_admin");
                         .requestMatchers(HttpMethod.POST, "/products").hasAuthority("admin")

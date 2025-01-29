@@ -2,7 +2,9 @@ package ee.mihkel.veebipood;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @SpringBootApplication
 public class VeebipoodApplication {
 
@@ -117,4 +119,8 @@ public class VeebipoodApplication {
 //Tegelikult:
 //16.N 09.01   17.45-21.00 ---> Githubist vaatame: CGI, kümnevõistlus, bowling
 //17.N 16.01   17.45-21.00
-//18.N 23.01  lõpuprojekti esitlemine  17.45-20.00  -- CSS
+//18.N 23.01  lõpuprojekti esitlemine  17.45-20.00  --
+// Profiilid - LIVE / TEST keskkonna vahetus
+// cron
+// CSS --> avalehel toodete GRID
+//     --> ostukorvis FLEX vasakult paremale

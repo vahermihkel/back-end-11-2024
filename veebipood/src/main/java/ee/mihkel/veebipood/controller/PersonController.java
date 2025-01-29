@@ -6,6 +6,7 @@ import ee.mihkel.veebipood.models.EmailPassword;
 import ee.mihkel.veebipood.models.Token;
 import ee.mihkel.veebipood.repository.PersonRepository;
 import ee.mihkel.veebipood.service.AuthService;
+import ee.mihkel.veebipood.service.EmailService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;

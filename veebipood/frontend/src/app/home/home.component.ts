@@ -29,7 +29,7 @@ export class HomeComponent {
   // sort = "name";
   // direction = "asc";
   // activeCategoryId = 0;
-  params = {search: "", activeCategoryId: 0, currentPage: 1, pageSize: 3, sort: "name", direction: "asc"};
+  params = {search: "", activeCategoryId: 0, currentPage: 1, pageSize: 9, sort: "name", direction: "asc"};
   searched = "";
 
   // failide sidumiseks
